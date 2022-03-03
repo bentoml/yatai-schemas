@@ -42,7 +42,7 @@ type BentoWithRepositoryListSchema struct {
 
 type BentoFullSchema struct {
 	BentoWithRepositorySchema
-	Models []*ModelSchema `json:"models"`
+	Models []*ModelWithRepositorySchema `json:"models"`
 }
 
 type CreateBentoSchema struct {
