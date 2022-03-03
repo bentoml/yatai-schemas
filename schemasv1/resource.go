@@ -1,6 +1,6 @@
 package schemasv1
 
-import "github.com/bentoml/yatai/schemas/modelschemas"
+import "github.com/bentoml/yatai-schemas/modelschemas"
 
 type ResourceSchema struct {
 	BaseSchema

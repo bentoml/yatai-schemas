@@ -1,7 +1,7 @@
 package schemasv1
 
 import (
-	"github.com/bentoml/yatai/schemas/modelschemas"
+	"github.com/bentoml/yatai-schemas/modelschemas"
 )
 
 type ClusterSchema struct {

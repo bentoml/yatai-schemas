@@ -3,7 +3,7 @@ package schemasv1
 import (
 	"time"
 
-	"github.com/bentoml/yatai/schemas/modelschemas"
+	"github.com/bentoml/yatai-schemas/modelschemas"
 )
 
 type ModelSchema struct {
