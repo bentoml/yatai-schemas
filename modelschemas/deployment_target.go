@@ -37,12 +37,16 @@ type DeploymentTargetResources struct {
 
 func (in *DeploymentTargetResources) DeepCopyInto(out *DeploymentTargetResources) {
 	*out = *in
-	requests := &out.Requests
-	*requests = new(DeploymentTargetResourceItem)
-	(*in).Requests.DeepCopyInto(*requests)
-	limits := &out.Limits
-	*limits = new(DeploymentTargetResourceItem)
-	(*in).Limits.DeepCopyInto(*limits)
+	if in.Requests != nil {
+		in, out := &in.Requests, &out.Requests
+		*out = new(DeploymentTargetResourceItem)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.Limits != nil {
+		in, out := &in.Limits, &out.Limits
+		*out = new(DeploymentTargetResourceItem)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 type DeploymentTargetHPAConf struct {
