@@ -23,9 +23,26 @@ type DeploymentTargetResourceItem struct {
 	GPU    string `json:"gpu"`
 }
 
+func (in *DeploymentTargetResourceItem) DeepCopyInto(out *DeploymentTargetResourceItem) {
+	*out = *in
+	out.CPU = in.CPU
+	out.Memory = in.Memory
+	out.GPU = in.GPU
+}
+
 type DeploymentTargetResources struct {
 	Requests *DeploymentTargetResourceItem `json:"requests"`
 	Limits   *DeploymentTargetResourceItem `json:"limits"`
+}
+
+func (in *DeploymentTargetResources) DeepCopyInto(out *DeploymentTargetResources) {
+	*out = *in
+	requests := &out.Requests
+	*requests = new(DeploymentTargetResourceItem)
+	(*in).Requests.DeepCopyInto(*requests)
+	limits := &out.Limits
+	*limits = new(DeploymentTargetResourceItem)
+	(*in).Limits.DeepCopyInto(*limits)
 }
 
 type DeploymentTargetHPAConf struct {
@@ -37,11 +54,59 @@ type DeploymentTargetHPAConf struct {
 	MaxReplicas *int32  `json:"max_replicas,omitempty"`
 }
 
+func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
+	*out = *in
+	if in.CPU != nil {
+		out.CPU = new(int32)
+		*out.CPU = *in.CPU
+	}
+	if in.GPU != nil {
+		out.GPU = new(int32)
+		*out.GPU = *in.GPU
+	}
+	if in.Memory != nil {
+		out.Memory = new(string)
+		*out.Memory = *in.Memory
+	}
+	if in.QPS != nil {
+		out.QPS = new(int64)
+		*out.QPS = *in.QPS
+	}
+	if in.MinReplicas != nil {
+		out.MinReplicas = new(int32)
+		*out.MinReplicas = *in.MinReplicas
+	}
+	if in.MaxReplicas != nil {
+		out.MaxReplicas = new(int32)
+		*out.MaxReplicas = *in.MaxReplicas
+	}
+}
+
 type DeploymentTargetConfig struct {
 	KubeResourceUid string                     `json:"kubeResourceUid"`
 	Resources       *DeploymentTargetResources `json:"resources"`
 	HPAConf         *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
 	Envs            *[]*LabelItemSchema        `json:"envs,omitempty"`
+}
+
+func (in *DeploymentTargetConfig) DeepCopyInto(out *DeploymentTargetConfig) {
+	*out = *in
+	if in.Resources != nil {
+		out.Resources = new(DeploymentTargetResources)
+		(*in).Resources.DeepCopyInto(out.Resources)
+	}
+	if in.HPAConf != nil {
+		out.HPAConf = new(DeploymentTargetHPAConf)
+		(*in).HPAConf.DeepCopyInto(out.HPAConf)
+	}
+	if in.Envs != nil {
+		out.Envs = new([]*LabelItemSchema)
+		for _, item := range *in.Envs {
+			newItem := new(LabelItemSchema)
+			item.DeepCopyInto(newItem)
+			*out.Envs = append(*out.Envs, newItem)
+		}
+	}
 }
 
 func (c *DeploymentTargetConfig) Scan(value interface{}) error {
