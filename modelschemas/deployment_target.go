@@ -136,7 +136,7 @@ func (in *DeploymentTargetConfig) DeepCopyInto(out *DeploymentTargetConfig) {
 		out.Envs = new([]*LabelItemSchema)
 		for _, item := range *in.Envs {
 			newItem := new(LabelItemSchema)
-			item.DeepCopyInto(&newItem)
+			item.DeepCopyInto(newItem)
 			*out.Envs = append(*out.Envs, newItem)
 		}
 	}

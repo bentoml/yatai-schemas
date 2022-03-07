@@ -5,20 +5,18 @@ type LabelItemSchema struct {
 	Value string `json:"value"`
 }
 
-func (in *LabelItemSchema) DeepCopy() (out **LabelItemSchema) {
+func (in *LabelItemSchema) DeepCopy() (out *LabelItemSchema) {
 	if in == nil {
 		return nil
 	}
-	out_ := new(LabelItemSchema)
-	in.DeepCopyInto(&out_)
-	out = &out_
+
+	out = new(LabelItemSchema)
+	in.DeepCopyInto(out)
 	return
 }
 
-func (in *LabelItemSchema) DeepCopyInto(out **LabelItemSchema) {
-	*out = new(LabelItemSchema)
-	(*out).Key = in.Key
-	(*out).Value = in.Value
+func (in *LabelItemSchema) DeepCopyInto(out *LabelItemSchema) {
+	*out = *in
 }
 
 type LabelItemsSchema []LabelItemSchema
