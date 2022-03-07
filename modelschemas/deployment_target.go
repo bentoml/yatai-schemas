@@ -35,6 +35,15 @@ type DeploymentTargetResources struct {
 	Limits   *DeploymentTargetResourceItem `json:"limits"`
 }
 
+func (in *DeploymentTargetResources) DeepCopy() (out *DeploymentTargetResources) {
+	if in == nil {
+		return nil
+	}
+	out = new(DeploymentTargetResources)
+	in.DeepCopyInto(out)
+	return
+}
+
 func (in *DeploymentTargetResources) DeepCopyInto(out *DeploymentTargetResources) {
 	*out = *in
 	if in.Requests != nil {
@@ -56,6 +65,15 @@ type DeploymentTargetHPAConf struct {
 	QPS         *int64  `json:"qps,omitempty"`
 	MinReplicas *int32  `json:"min_replicas,omitempty"`
 	MaxReplicas *int32  `json:"max_replicas,omitempty"`
+}
+
+func (in *DeploymentTargetHPAConf) DeepCopy() (out *DeploymentTargetHPAConf) {
+	if in == nil {
+		return nil
+	}
+	out = new(DeploymentTargetHPAConf)
+	in.DeepCopyInto(out)
+	return
 }
 
 func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
@@ -93,6 +111,15 @@ type DeploymentTargetConfig struct {
 	Envs            *[]*LabelItemSchema        `json:"envs,omitempty"`
 }
 
+func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
+	if in == nil {
+		return nil
+	}
+	out = new(DeploymentTargetConfig)
+	in.DeepCopyInto(out)
+	return
+}
+
 func (in *DeploymentTargetConfig) DeepCopyInto(out *DeploymentTargetConfig) {
 	*out = *in
 	if in.Resources != nil {
@@ -109,7 +136,7 @@ func (in *DeploymentTargetConfig) DeepCopyInto(out *DeploymentTargetConfig) {
 		out.Envs = new([]*LabelItemSchema)
 		for _, item := range *in.Envs {
 			newItem := new(LabelItemSchema)
-			item.DeepCopyInto(newItem)
+			item.DeepCopyInto(&newItem)
 			*out.Envs = append(*out.Envs, newItem)
 		}
 	}
