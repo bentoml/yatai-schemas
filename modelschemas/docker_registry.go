@@ -10,3 +10,8 @@ type DockerRegistrySchema struct {
 	Password                     string `json:"password"`
 	Secure                       bool   `json:"secure"`
 }
+
+type DockerRegistryRefSchema struct {
+	Namespace string `json:"namespace"`
+	Name      string `json:"name"`
+}
