@@ -18,8 +18,10 @@ type DeploymentListSchema struct {
 }
 
 type UpdateDeploymentSchema struct {
-	Targets []*CreateDeploymentTargetSchema `json:"targets"`
-	Labels  *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
+	Targets     []*CreateDeploymentTargetSchema `json:"targets"`
+	Labels      *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Status      *modelschemas.DeploymentStatus  `json:"status,omitempty" enum:"unknown,non-deployed,running,unhealthy,failed,deploying"`
 }
 
 type CreateDeploymentSchema struct {
