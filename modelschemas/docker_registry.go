@@ -14,4 +14,5 @@ type DockerRegistrySchema struct {
 type DockerRegistryRefSchema struct {
 	Namespace string `json:"namespace"`
 	Name      string `json:"name"`
+	Key       string `json:"key"`
 }
