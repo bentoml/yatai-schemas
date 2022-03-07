@@ -96,12 +96,14 @@ type DeploymentTargetConfig struct {
 func (in *DeploymentTargetConfig) DeepCopyInto(out *DeploymentTargetConfig) {
 	*out = *in
 	if in.Resources != nil {
-		out.Resources = new(DeploymentTargetResources)
-		(*in).Resources.DeepCopyInto(out.Resources)
+		in, out := &in.Resources, &out.Resources
+		*out = new(DeploymentTargetResources)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.HPAConf != nil {
-		out.HPAConf = new(DeploymentTargetHPAConf)
-		(*in).HPAConf.DeepCopyInto(out.HPAConf)
+		in, out := &in.HPAConf, &out.HPAConf
+		*out = new(DeploymentTargetHPAConf)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Envs != nil {
 		out.Envs = new([]*LabelItemSchema)
