@@ -25,7 +25,6 @@ type UpdateDeploymentSchema struct {
 
 type CreateDeploymentSchema struct {
 	Name          string `json:"name"`
-	Description   string `json:"description"`
 	KubeNamespace string `json:"kube_namespace"`
 	UpdateDeploymentSchema
 }
