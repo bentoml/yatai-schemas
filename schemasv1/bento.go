@@ -54,11 +54,11 @@ type CreateBentoSchema struct {
 }
 
 type UpdateBentoSchema struct {
-	Description string                            `json:"description"`
-	Version     string                            `json:"version"`
-	Manifest    *modelschemas.BentoManifestSchema `json:"manifest"`
-	BuildAt     string                            `json:"build_at"`
-	Labels      *modelschemas.LabelItemsSchema    `json:"labels,omitempty"`
+	Description string                             `json:"description"`
+	Version     string                             `json:"version"`
+	Manifest    **modelschemas.BentoManifestSchema `json:"manifest"`
+	BuildAt     string                             `json:"build_at"`
+	Labels      *modelschemas.LabelItemsSchema     `json:"labels,omitempty"`
 }
 
 type FinishUploadBentoSchema struct {
