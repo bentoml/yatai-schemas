@@ -23,19 +23,25 @@ const (
 	ImageBuildStatusFailed   ImageBuildStatus = "failed"
 )
 
-type BentoManifestApi struct {
+type BentoApiSchema struct {
 	Route  string `json:"route"`
 	Doc    string `json:"doc"`
 	Input  string `json:"input"`
 	Output string `json:"output"`
 }
 
+type BentoRunnerSchema struct {
+	Name       string `json:"name"`
+	RunnerType string `json:"runner_type"`
+}
+
 type BentoManifestSchema struct {
-	Service        string                      `json:"service"`
-	BentomlVersion string                      `json:"bentoml_version"`
-	Apis           map[string]BentoManifestApi `json:"apis"`
-	Models         []string                    `json:"models"`
-	SizeBytes      uint                        `json:"size_bytes"`
+	Service        string                    `json:"service"`
+	BentomlVersion string                    `json:"bentoml_version"`
+	Apis           map[string]BentoApiSchema `json:"apis"`
+	Models         []string                  `json:"models"`
+	Runners        []BentoRunnerSchema       `json:"runners"`
+	SizeBytes      uint                      `json:"size_bytes"`
 }
 
 func (c *BentoManifestSchema) Scan(value interface{}) error {
