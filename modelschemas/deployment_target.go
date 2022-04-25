@@ -104,11 +104,51 @@ func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
 	}
 }
 
+type DeploymentTargetRunnerConfig struct {
+	Name      string                     `json:"name,omitempty"`
+	Resources *DeploymentTargetResources `json:"resources,omitempty"`
+	HPAConf   *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
+	Envs      *[]*LabelItemSchema        `json:"envs,omitempty"`
+}
+
+func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
+	if in == nil {
+		return nil
+	}
+	out = new(DeploymentTargetRunnerConfig)
+	in.DeepCopyInto(out)
+	return
+}
+
+func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunnerConfig) {
+	*out = *in
+	out.Name = in.Name
+	if in.Resources != nil {
+		in, out := &in.Resources, &out.Resources
+		*out = new(DeploymentTargetResources)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.HPAConf != nil {
+		in, out := &in.HPAConf, &out.HPAConf
+		*out = new(DeploymentTargetHPAConf)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.Envs != nil {
+		out.Envs = new([]*LabelItemSchema)
+		for _, item := range *in.Envs {
+			newItem := new(LabelItemSchema)
+			item.DeepCopyInto(newItem)
+			*out.Envs = append(*out.Envs, newItem)
+		}
+	}
+}
+
 type DeploymentTargetConfig struct {
-	KubeResourceUid string                     `json:"kubeResourceUid"`
-	Resources       *DeploymentTargetResources `json:"resources"`
-	HPAConf         *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
-	Envs            *[]*LabelItemSchema        `json:"envs,omitempty"`
+	KubeResourceUid string                           `json:"kubeResourceUid"`
+	Resources       *DeploymentTargetResources       `json:"resources"`
+	HPAConf         *DeploymentTargetHPAConf         `json:"hpa_conf,omitempty"`
+	Envs            *[]*LabelItemSchema              `json:"envs,omitempty"`
+	Runners         *[]*DeploymentTargetRunnerConfig `json:"runners,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
