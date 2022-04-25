@@ -105,7 +105,6 @@ func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
 }
 
 type DeploymentTargetRunnerConfig struct {
-	Name      string                     `json:"name,omitempty"`
 	Resources *DeploymentTargetResources `json:"resources,omitempty"`
 	HPAConf   *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
 	Envs      *[]*LabelItemSchema        `json:"envs,omitempty"`
@@ -122,7 +121,6 @@ func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerC
 
 func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunnerConfig) {
 	*out = *in
-	out.Name = in.Name
 	if in.Resources != nil {
 		in, out := &in.Resources, &out.Resources
 		*out = new(DeploymentTargetResources)
@@ -144,11 +142,11 @@ func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunner
 }
 
 type DeploymentTargetConfig struct {
-	KubeResourceUid string                           `json:"kubeResourceUid"`
-	Resources       *DeploymentTargetResources       `json:"resources"`
-	HPAConf         *DeploymentTargetHPAConf         `json:"hpa_conf,omitempty"`
-	Envs            *[]*LabelItemSchema              `json:"envs,omitempty"`
-	Runners         *[]*DeploymentTargetRunnerConfig `json:"runners,omitempty"`
+	KubeResourceUid string                                  `json:"kubeResourceUid"`
+	Resources       *DeploymentTargetResources              `json:"resources"`
+	HPAConf         *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
+	Envs            *[]*LabelItemSchema                     `json:"envs,omitempty"`
+	Runners         map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
