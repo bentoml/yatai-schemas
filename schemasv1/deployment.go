@@ -18,9 +18,10 @@ type DeploymentListSchema struct {
 }
 
 type UpdateDeploymentSchema struct {
-	Targets     []*CreateDeploymentTargetSchema `json:"targets"`
-	Labels      *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Targets       []*CreateDeploymentTargetSchema `json:"targets"`
+	Labels        *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
+	Description   *string                         `json:"description,omitempty"`
+	EnableIngress bool                            `json:"enable_ingress"`
 }
 
 type CreateDeploymentSchema struct {
