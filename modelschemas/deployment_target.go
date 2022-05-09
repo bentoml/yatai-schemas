@@ -147,6 +147,7 @@ type DeploymentTargetConfig struct {
 	HPAConf         *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
 	Envs            *[]*LabelItemSchema                     `json:"envs,omitempty"`
 	Runners         map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
+	EnableIngress   *bool                                   `json:"enable_ingress,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
