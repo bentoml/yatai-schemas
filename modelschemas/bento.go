@@ -30,9 +30,17 @@ type BentoApiSchema struct {
 	Output string `json:"output"`
 }
 
+type BentoRunnerResourceSchema struct {
+	CPU             *float64           `json:"cpu"`
+	NvidiaGPU       *float64           `json:"nvidia_gpu"`
+	CustomResources map[string]float64 `json:"custom_resources"`
+}
+
 type BentoRunnerSchema struct {
-	Name       string `json:"name"`
-	RunnerType string `json:"runner_type"`
+	Name           string                     `json:"name"`
+	RunnableType   string                     `json:"runnable_type"`
+	Models         []string                   `json:"models"`
+	ResourceConfig *BentoRunnerResourceSchema `json:"resource_config"`
 }
 
 type BentoManifestSchema struct {
