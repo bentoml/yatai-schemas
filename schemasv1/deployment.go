@@ -21,6 +21,7 @@ type UpdateDeploymentSchema struct {
 	Targets     []*CreateDeploymentTargetSchema `json:"targets"`
 	Labels      *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
 	Description *string                         `json:"description,omitempty"`
+	DoNotDeploy bool                            `json:"do_not_deploy,omitempty"`
 }
 
 type CreateDeploymentSchema struct {
