@@ -142,12 +142,13 @@ func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunner
 }
 
 type DeploymentTargetConfig struct {
-	KubeResourceUid string                                  `json:"kubeResourceUid"`
-	Resources       *DeploymentTargetResources              `json:"resources"`
-	HPAConf         *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
-	Envs            *[]*LabelItemSchema                     `json:"envs,omitempty"`
-	Runners         map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
-	EnableIngress   *bool                                   `json:"enable_ingress,omitempty"`
+	KubeResourceUid     string                                  `json:"kubeResourceUid"`
+	KubeResourceVersion string                                  `json:"kubeResourceVersion"`
+	Resources           *DeploymentTargetResources              `json:"resources"`
+	HPAConf             *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
+	Envs                *[]*LabelItemSchema                     `json:"envs,omitempty"`
+	Runners             map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
+	EnableIngress       *bool                                   `json:"enable_ingress,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
