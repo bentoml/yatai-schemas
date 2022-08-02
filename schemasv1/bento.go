@@ -8,21 +8,22 @@ import (
 
 type BentoSchema struct {
 	ResourceSchema
-	BentoRepositoryUid   string                            `json:"bento_repository_uid"`
-	Creator              *UserSchema                       `json:"creator"`
-	Version              string                            `json:"version"`
-	Description          string                            `json:"description"`
-	ImageName            string                            `json:"image_name"`
-	InClusterImageName   string                            `json:"in_cluster_image_name"`
-	ImageBuildStatus     modelschemas.ImageBuildStatus     `json:"image_build_status"`
-	UploadStatus         modelschemas.BentoUploadStatus    `json:"upload_status"`
-	UploadStartedAt      *time.Time                        `json:"upload_started_at"`
-	UploadFinishedAt     *time.Time                        `json:"upload_finished_at"`
-	UploadFinishedReason string                            `json:"upload_finished_reason"`
-	PresignedUploadUrl   string                            `json:"presigned_upload_url"`
-	PresignedDownloadUrl string                            `json:"presigned_download_url"`
-	Manifest             *modelschemas.BentoManifestSchema `json:"manifest"`
-	BuildAt              time.Time                         `json:"build_at"`
+	BentoRepositoryUid      string                            `json:"bento_repository_uid"`
+	Creator                 *UserSchema                       `json:"creator"`
+	Version                 string                            `json:"version"`
+	Description             string                            `json:"description"`
+	ImageName               string                            `json:"image_name"`
+	InClusterImageName      string                            `json:"in_cluster_image_name"`
+	ImageBuildStatus        modelschemas.ImageBuildStatus     `json:"image_build_status"`
+	UploadStatus            modelschemas.BentoUploadStatus    `json:"upload_status"`
+	UploadStartedAt         *time.Time                        `json:"upload_started_at"`
+	UploadFinishedAt        *time.Time                        `json:"upload_finished_at"`
+	UploadFinishedReason    string                            `json:"upload_finished_reason"`
+	PresignedUploadUrl      string                            `json:"presigned_upload_url"`
+	PresignedDownloadUrl    string                            `json:"presigned_download_url"`
+	PresignedUrlsDeprecated bool                              `json:"presigned_urls_deprecated"`
+	Manifest                *modelschemas.BentoManifestSchema `json:"manifest"`
+	BuildAt                 time.Time                         `json:"build_at"`
 }
 
 type BentoListSchema struct {
