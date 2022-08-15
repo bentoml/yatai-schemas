@@ -14,7 +14,7 @@ type ClusterComponentSchema struct {
 	Version           string                                       `json:"version"`
 	KubeNamespace     string                                       `json:"kube_namespace"`
 	Manifest          *modelschemas.ClusterComponentManifestSchema `json:"manifest"`
-	LatestUpdatedAt   *time.Time                                   `json:"latest_updated_at"`
+	LatestInstalledAt *time.Time                                   `json:"latest_installed_at"`
 	LatestHeartbeatAt *time.Time                                   `json:"latest_heartbeat_at"`
 }
 
