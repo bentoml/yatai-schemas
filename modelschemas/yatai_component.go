@@ -1,25 +1,24 @@
 package modelschemas
 
-type YataiComponentType string
-
-const (
-	YataiComponentTypeDeployment YataiComponentType = "deployment"
-	YataiComponentTypeLogging    YataiComponentType = "logging"
-	YataiComponentTypeMonitoring YataiComponentType = "monitoring"
+import (
+	"database/sql/driver"
+	"encoding/json"
 )
 
-type YataiComponentStatus string
+type ClusterComponentManifestSchema struct {
+	SelectorLabels map[string]string `json:"selector_labels,omitempty"`
+}
 
-const (
-	YataiComponentStatusInstalling YataiComponentStatus = "installing"
-	YataiComponentStatusRunning    YataiComponentStatus = "running"
-	YataiComponentStatusFailed     YataiComponentStatus = "failed"
-)
+func (c *ClusterComponentManifestSchema) Scan(value interface{}) error {
+	if value == nil {
+		return nil
+	}
+	return json.Unmarshal(value.([]byte), c)
+}
 
-type YataiComponentInstallerStatus string
-
-const (
-	YataiComponentInstallerStatusInstalling YataiComponentInstallerStatus = "installing"
-	YataiComponentInstallerStatusRunning    YataiComponentInstallerStatus = "running"
-	YataiComponentInstallerStatusFailed     YataiComponentInstallerStatus = "failed"
-)
+func (c *ClusterComponentManifestSchema) Value() (driver.Value, error) {
+	if c == nil {
+		return nil, nil
+	}
+	return json.Marshal(c)
+}

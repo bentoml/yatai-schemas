@@ -1,16 +1,33 @@
 package schemasv1
 
 import (
-	"helm.sh/helm/v3/pkg/release"
+	"time"
 
 	"github.com/bentoml/yatai-schemas/modelschemas"
 )
 
+type YataiComponentName string
+
+const (
+	YataiComponentNameDeployment YataiComponentName = "deployment"
+)
+
 type YataiComponentSchema struct {
-	Type    modelschemas.YataiComponentType `json:"type"`
-	Release *release.Release                `json:"release"`
+	ResourceSchema
+	Name              YataiComponentName                           `json:"name"`
+	Creator           *UserSchema                                  `json:"creator"`
+	Cluster           *ClusterFullSchema                           `json:"cluster"`
+	Description       string                                       `json:"description"`
+	Version           string                                       `json:"version"`
+	KubeNamespace     string                                       `json:"kube_namespace"`
+	Manifest          *modelschemas.ClusterComponentManifestSchema `json:"manifest"`
+	LatestInstalledAt *time.Time                                   `json:"latest_installed_at"`
+	LatestHeartbeatAt *time.Time                                   `json:"latest_heartbeat_at"`
 }
 
-type CreateYataiComponentSchema struct {
-	Type modelschemas.YataiComponentType `json:"type"`
+type RegisterYataiComponentSchema struct {
+	Name           YataiComponentName `json:"name"`
+	Version        string             `json:"version"`
+	KubeNamespace  string             `json:"kube_namespace"`
+	SelectorLabels map[string]string  `json:"selector_labels,omitempty"`
 }
