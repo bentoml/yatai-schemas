@@ -5,18 +5,18 @@ import (
 	"encoding/json"
 )
 
-type ClusterComponentManifestSchema struct {
+type YataiComponentManifestSchema struct {
 	SelectorLabels map[string]string `json:"selector_labels,omitempty"`
 }
 
-func (c *ClusterComponentManifestSchema) Scan(value interface{}) error {
+func (c *YataiComponentManifestSchema) Scan(value interface{}) error {
 	if value == nil {
 		return nil
 	}
 	return json.Unmarshal(value.([]byte), c)
 }
 
-func (c *ClusterComponentManifestSchema) Value() (driver.Value, error) {
+func (c *YataiComponentManifestSchema) Value() (driver.Value, error) {
 	if c == nil {
 		return nil, nil
 	}

@@ -5,13 +5,11 @@ go 1.17
 require (
 	github.com/huandu/xstrings v1.3.2
 	github.com/pkg/errors v0.9.1
-	helm.sh/helm/v3 v3.8.0
 	k8s.io/api v0.23.4
 	k8s.io/apimachinery v0.23.4
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/go-logr/logr v1.2.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
@@ -23,10 +21,12 @@ require (
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	golang.org/x/net v0.0.0-20220107192237-5cfca573fb4d // indirect
 	golang.org/x/text v0.3.7 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/klog/v2 v2.30.0 // indirect
 	k8s.io/utils v0.0.0-20211116205334-6203023598ed // indirect
 	sigs.k8s.io/json v0.0.0-20211020170558-c049b76a60c6 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
+	sigs.k8s.io/yaml v1.3.0 // indirect
 )

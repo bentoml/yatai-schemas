@@ -14,15 +14,15 @@ const (
 
 type YataiComponentSchema struct {
 	ResourceSchema
-	Name              YataiComponentName                           `json:"name"`
-	Creator           *UserSchema                                  `json:"creator"`
-	Cluster           *ClusterFullSchema                           `json:"cluster"`
-	Description       string                                       `json:"description"`
-	Version           string                                       `json:"version"`
-	KubeNamespace     string                                       `json:"kube_namespace"`
-	Manifest          *modelschemas.ClusterComponentManifestSchema `json:"manifest"`
-	LatestInstalledAt *time.Time                                   `json:"latest_installed_at"`
-	LatestHeartbeatAt *time.Time                                   `json:"latest_heartbeat_at"`
+	Name              YataiComponentName                         `json:"name"`
+	Creator           *UserSchema                                `json:"creator"`
+	Cluster           *ClusterFullSchema                         `json:"cluster"`
+	Description       string                                     `json:"description"`
+	Version           string                                     `json:"version"`
+	KubeNamespace     string                                     `json:"kube_namespace"`
+	Manifest          *modelschemas.YataiComponentManifestSchema `json:"manifest"`
+	LatestInstalledAt *time.Time                                 `json:"latest_installed_at"`
+	LatestHeartbeatAt *time.Time                                 `json:"latest_heartbeat_at"`
 }
 
 type RegisterYataiComponentSchema struct {
