@@ -15,7 +15,7 @@ const (
 	ResourceTypeModel              ResourceType = "model"
 	ResourceTypeLabel              ResourceType = "label"
 	ResourceTypeApiToken           ResourceType = "api_token"
-	ResourceTypeClusterComponent   ResourceType = "cluster_component"
+	ResourceTypeYataiComponent     ResourceType = "yatai_component"
 )
 
 func (type_ ResourceType) Ptr() *ResourceType {
