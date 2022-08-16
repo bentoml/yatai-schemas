@@ -4,10 +4,11 @@ import "github.com/bentoml/yatai-schemas/modelschemas"
 
 type UserSchema struct {
 	ResourceSchema
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	AvatarUrl string `json:"avatar_url"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	Email        string `json:"email"`
+	AvatarUrl    string `json:"avatar_url"`
+	IsSuperAdmin bool   `json:"is_super_admin"`
 }
 
 type UserListSchema struct {
