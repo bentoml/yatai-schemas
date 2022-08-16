@@ -5,6 +5,12 @@ import (
 	"encoding/json"
 )
 
+type YataiComponentName string
+
+const (
+	YataiComponentNameDeployment YataiComponentName = "deployment"
+)
+
 type YataiComponentManifestSchema struct {
 	SelectorLabels map[string]string `json:"selector_labels,omitempty"`
 }

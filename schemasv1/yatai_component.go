@@ -6,15 +6,8 @@ import (
 	"github.com/bentoml/yatai-schemas/modelschemas"
 )
 
-type YataiComponentName string
-
-const (
-	YataiComponentNameDeployment YataiComponentName = "deployment"
-)
-
 type YataiComponentSchema struct {
 	ResourceSchema
-	Name              YataiComponentName                         `json:"name"`
 	Creator           *UserSchema                                `json:"creator"`
 	Cluster           *ClusterFullSchema                         `json:"cluster"`
 	Description       string                                     `json:"description"`
@@ -26,8 +19,8 @@ type YataiComponentSchema struct {
 }
 
 type RegisterYataiComponentSchema struct {
-	Name           YataiComponentName `json:"name"`
-	Version        string             `json:"version"`
-	KubeNamespace  string             `json:"kube_namespace"`
-	SelectorLabels map[string]string  `json:"selector_labels,omitempty"`
+	Name           modelschemas.YataiComponentName `json:"name"`
+	Version        string                          `json:"version"`
+	KubeNamespace  string                          `json:"kube_namespace"`
+	SelectorLabels map[string]string               `json:"selector_labels,omitempty"`
 }
