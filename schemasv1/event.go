@@ -8,7 +8,7 @@ import (
 
 type EventSchema struct {
 	BaseSchema
-	Resource        IResourceSchema          `json:"resource,omitempty"`
+	Resource        interface{}              `json:"resource,omitempty"`
 	Name            string                   `json:"name,omitempty"`
 	Status          modelschemas.EventStatus `json:"status,omitempty"`
 	OperationName   string                   `json:"operation_name,omitempty"`
