@@ -18,9 +18,10 @@ var DeploymentTargetTypeAddrs = map[DeploymentTargetType]string{
 }
 
 type DeploymentTargetResourceItem struct {
-	CPU    string `json:"cpu,omitempty"`
-	Memory string `json:"memory,omitempty"`
-	GPU    string `json:"gpu,omitempty"`
+	CPU             string            `json:"cpu,omitempty"`
+	Memory          string            `json:"memory,omitempty"`
+	GPU             string            `json:"gpu,omitempty"`
+	CustomResources map[string]string `json:"custom_resources,omitempty"`
 }
 
 func (in *DeploymentTargetResourceItem) DeepCopyInto(out *DeploymentTargetResourceItem) {
