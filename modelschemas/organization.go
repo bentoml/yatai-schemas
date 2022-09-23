@@ -46,10 +46,11 @@ type OrganizationS3Schema struct {
 }
 
 type OrganizationConfigSchema struct {
-	MajorClusterUid string                            `json:"major_cluster_uid"`
-	AWS             *OrganizationConfigAWSSchema      `json:"aws,omitempty"`
-	DockerRegistry  *OrganizationDockerRegistrySchema `json:"docker_registry,omitempty"`
-	S3              *OrganizationS3Schema             `json:"s3,omitempty"`
+	MajorClusterUid      string                            `json:"major_cluster_uid"`
+	AWS                  *OrganizationConfigAWSSchema      `json:"aws,omitempty"`
+	DockerRegistry       *OrganizationDockerRegistrySchema `json:"docker_registry,omitempty"`
+	S3                   *OrganizationS3Schema             `json:"s3,omitempty"`
+	TransmissionStrategy *TransmissionStrategy             `json:"transmission_strategy,omitempty"`
 }
 
 func (c *OrganizationConfigSchema) Scan(value interface{}) error {
