@@ -5,6 +5,13 @@ import (
 	"encoding/json"
 )
 
+type TransmissionStrategy string
+
+const (
+	TransmissionStrategyPresignedURL TransmissionStrategy = "presigned_url"
+	TransmissionStrategyProxy        TransmissionStrategy = "proxy"
+)
+
 type BentoUploadStatus string
 
 const (
