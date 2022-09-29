@@ -19,8 +19,9 @@ type YataiComponentSchema struct {
 }
 
 type RegisterYataiComponentSchema struct {
-	Name           modelschemas.YataiComponentName `json:"name"`
-	Version        string                          `json:"version"`
-	KubeNamespace  string                          `json:"kube_namespace"`
-	SelectorLabels map[string]string               `json:"selector_labels,omitempty"`
+	Name           modelschemas.YataiComponentName            `json:"name"`
+	Version        string                                     `json:"version"`
+	KubeNamespace  string                                     `json:"kube_namespace"`
+	SelectorLabels map[string]string                          `json:"selector_labels,omitempty"`
+	Manifest       *modelschemas.YataiComponentManifestSchema `json:"manifest"`
 }

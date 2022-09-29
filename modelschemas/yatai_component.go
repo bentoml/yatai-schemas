@@ -12,7 +12,8 @@ const (
 )
 
 type YataiComponentManifestSchema struct {
-	SelectorLabels map[string]string `json:"selector_labels,omitempty"`
+	SelectorLabels   map[string]string `json:"selector_labels,omitempty"`
+	LatestCRDVersion string            `json:"latest_crd_version,omitempty"`
 }
 
 func (c *YataiComponentManifestSchema) Scan(value interface{}) error {
