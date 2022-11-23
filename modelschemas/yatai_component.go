@@ -8,7 +8,10 @@ import (
 type YataiComponentName string
 
 const (
-	YataiComponentNameDeployment YataiComponentName = "deployment"
+	YataiComponentNameDeployment   YataiComponentName = "deployment"
+	YataiComponentNameImageBuilder YataiComponentName = "image-builder"
+	YataiComponentNameFunction     YataiComponentName = "function"
+	YataiComponentNameJob          YataiComponentName = "job"
 )
 
 type YataiComponentManifestSchema struct {
