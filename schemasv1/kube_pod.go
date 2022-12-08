@@ -19,6 +19,8 @@ type KubePodStatusSchema struct {
 type KubePodSchema struct {
 	Name             string                     `json:"name"`
 	Namespace        string                     `json:"namespace"`
+	Annotations      map[string]string          `json:"annotations"`
+	Labels           map[string]string          `json:"labels"`
 	NodeName         string                     `json:"node_name"`
 	RunnerName       *string                    `json:"runner_name"`
 	DeploymentTarget *DeploymentTargetSchema    `json:"deployment_target"`
