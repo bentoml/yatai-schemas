@@ -106,9 +106,12 @@ func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
 }
 
 type DeploymentTargetRunnerConfig struct {
-	Resources *DeploymentTargetResources `json:"resources,omitempty"`
-	HPAConf   *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
-	Envs      *[]*LabelItemSchema        `json:"envs,omitempty"`
+	Resources                              *DeploymentTargetResources `json:"resources,omitempty"`
+	HPAConf                                *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
+	Envs                                   *[]*LabelItemSchema        `json:"envs,omitempty"`
+	EnableStealingTrafficDebugMode         *bool                      `json:"enable_stealing_traffic_debug_mode,omitempty"`
+	EnableDebugMode                        *bool                      `json:"enable_debug_mode,omitempty"`
+	EnableDebugPodReceiveProductionTraffic *bool                      `json:"enable_debug_pod_receive_production_traffic,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -143,13 +146,16 @@ func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunner
 }
 
 type DeploymentTargetConfig struct {
-	KubeResourceUid     string                                  `json:"kubeResourceUid"`
-	KubeResourceVersion string                                  `json:"kubeResourceVersion"`
-	Resources           *DeploymentTargetResources              `json:"resources"`
-	HPAConf             *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
-	Envs                *[]*LabelItemSchema                     `json:"envs,omitempty"`
-	Runners             map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
-	EnableIngress       *bool                                   `json:"enable_ingress,omitempty"`
+	KubeResourceUid                        string                                  `json:"kubeResourceUid"`
+	KubeResourceVersion                    string                                  `json:"kubeResourceVersion"`
+	Resources                              *DeploymentTargetResources              `json:"resources"`
+	HPAConf                                *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
+	Envs                                   *[]*LabelItemSchema                     `json:"envs,omitempty"`
+	Runners                                map[string]DeploymentTargetRunnerConfig `json:"runners,omitempty"`
+	EnableIngress                          *bool                                   `json:"enable_ingress,omitempty"`
+	EnableStealingTrafficDebugMode         *bool                                   `json:"enable_stealing_traffic_debug_mode,omitempty"`
+	EnableDebugMode                        *bool                                   `json:"enable_debug_mode,omitempty"`
+	EnableDebugPodReceiveProductionTraffic *bool                                   `json:"enable_debug_pod_receive_production_traffic,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
