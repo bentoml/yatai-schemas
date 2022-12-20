@@ -112,7 +112,7 @@ type DeploymentTargetRunnerConfig struct {
 	EnableStealingTrafficDebugMode         *bool                      `json:"enable_stealing_traffic_debug_mode,omitempty"`
 	EnableDebugMode                        *bool                      `json:"enable_debug_mode,omitempty"`
 	EnableDebugPodReceiveProductionTraffic *bool                      `json:"enable_debug_pod_receive_production_traffic,omitempty"`
-	DeploymentRecreate                     *bool                      `json:"deployment_recreate,omitempty"`
+	DeploymentStrategy                     *DeploymentStrategy        `json:"deployment_strategy,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -146,6 +146,15 @@ func (in *DeploymentTargetRunnerConfig) DeepCopyInto(out *DeploymentTargetRunner
 	}
 }
 
+type DeploymentStrategy string
+
+const (
+	DeploymentStrategyRollingUpdate               DeploymentStrategy = "RollingUpdate"
+	DeploymentStrategyRecreate                    DeploymentStrategy = "Recreate"
+	DeploymentStrategyRampedSlowRollout           DeploymentStrategy = "RampedSlowRollout"
+	DeploymentStrategyBestEffortControlledRollout DeploymentStrategy = "BestEffortControlledRollout"
+)
+
 type DeploymentTargetConfig struct {
 	KubeResourceUid                        string                                  `json:"kubeResourceUid"`
 	KubeResourceVersion                    string                                  `json:"kubeResourceVersion"`
@@ -157,7 +166,7 @@ type DeploymentTargetConfig struct {
 	EnableStealingTrafficDebugMode         *bool                                   `json:"enable_stealing_traffic_debug_mode,omitempty"`
 	EnableDebugMode                        *bool                                   `json:"enable_debug_mode,omitempty"`
 	EnableDebugPodReceiveProductionTraffic *bool                                   `json:"enable_debug_pod_receive_production_traffic,omitempty"`
-	DeploymentRecreate                     *bool                                   `json:"deployment_recreate,omitempty"`
+	DeploymentStrategy                     *DeploymentStrategy                     `json:"deployment_strategy,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
