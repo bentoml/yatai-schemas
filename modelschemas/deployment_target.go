@@ -3,6 +3,12 @@ package modelschemas
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"time"
+
+	corev1 "k8s.io/api/core/v1"
+
+	servingv2alpha1 "github.com/bentoml/yatai-deployment/apis/serving/v2alpha1"
+	resourcesv1alpha1 "github.com/bentoml/yatai-image-builder/apis/resources/v1alpha1"
 )
 
 type DeploymentTargetType string
@@ -26,9 +32,13 @@ type DeploymentTargetResourceItem struct {
 
 func (in *DeploymentTargetResourceItem) DeepCopyInto(out *DeploymentTargetResourceItem) {
 	*out = *in
-	out.CPU = in.CPU
-	out.Memory = in.Memory
-	out.GPU = in.GPU
+	if in.Custom != nil {
+		in, out := &in.Custom, &out.Custom
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 }
 
 type DeploymentTargetResources struct {
@@ -105,14 +115,40 @@ func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
 	}
 }
 
+type BentoRequestOverrides struct {
+	ImageBuildTimeout *time.Duration `json:"imageBuildTimeout,omitempty"`
+
+	ImageBuilderExtraPodMetadata   *resourcesv1alpha1.ExtraPodMetadata `json:"imageBuilderExtraPodMetadata,omitempty"`
+	ImageBuilderExtraPodSpec       *resourcesv1alpha1.ExtraPodSpec     `json:"imageBuilderExtraPodSpec,omitempty"`
+	ImageBuilderExtraContainerEnv  []corev1.EnvVar                     `json:"imageBuilderExtraContainerEnv,omitempty"`
+	ImageBuilderContainerResources *corev1.ResourceRequirements        `json:"imageBuilderContainerResources,omitempty"`
+
+	DockerConfigJSONSecretName string `json:"dockerConfigJsonSecretName,omitempty"`
+
+	DownloaderContainerEnvFrom []corev1.EnvFromSource `json:"downloaderContainerEnvFrom,omitempty"`
+}
+
+type ApiServerBentoDeploymentOverrides struct {
+	MonitorExporter  *servingv2alpha1.MonitorExporterSpec `json:"monitor_exporter,omitempty"`
+	ExtraPodMetadata *servingv2alpha1.ExtraPodMetadata    `json:"extraPodMetadata,omitempty"`
+	ExtraPodSpec     *servingv2alpha1.ExtraPodSpec        `json:"extraPodSpec,omitempty"`
+}
+
+type RunnerBentoDeploymentOverrides struct {
+	MonitorExporter  *servingv2alpha1.MonitorExporterSpec `json:"monitor_exporter,omitempty"`
+	ExtraPodMetadata *servingv2alpha1.ExtraPodMetadata    `json:"extraPodMetadata,omitempty"`
+	ExtraPodSpec     *servingv2alpha1.ExtraPodSpec        `json:"extraPodSpec,omitempty"`
+}
+
 type DeploymentTargetRunnerConfig struct {
-	Resources                              *DeploymentTargetResources `json:"resources,omitempty"`
-	HPAConf                                *DeploymentTargetHPAConf   `json:"hpa_conf,omitempty"`
-	Envs                                   *[]*LabelItemSchema        `json:"envs,omitempty"`
-	EnableStealingTrafficDebugMode         *bool                      `json:"enable_stealing_traffic_debug_mode,omitempty"`
-	EnableDebugMode                        *bool                      `json:"enable_debug_mode,omitempty"`
-	EnableDebugPodReceiveProductionTraffic *bool                      `json:"enable_debug_pod_receive_production_traffic,omitempty"`
-	DeploymentStrategy                     *DeploymentStrategy        `json:"deployment_strategy,omitempty"`
+	Resources                              *DeploymentTargetResources      `json:"resources,omitempty"`
+	HPAConf                                *DeploymentTargetHPAConf        `json:"hpa_conf,omitempty"`
+	Envs                                   *[]*LabelItemSchema             `json:"envs,omitempty"`
+	EnableStealingTrafficDebugMode         *bool                           `json:"enable_stealing_traffic_debug_mode,omitempty"`
+	EnableDebugMode                        *bool                           `json:"enable_debug_mode,omitempty"`
+	EnableDebugPodReceiveProductionTraffic *bool                           `json:"enable_debug_pod_receive_production_traffic,omitempty"`
+	DeploymentStrategy                     *DeploymentStrategy             `json:"deployment_strategy,omitempty"`
+	BentoDeploymentOverrides               *RunnerBentoDeploymentOverrides `json:"bento_deployment_overrides,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -167,6 +203,8 @@ type DeploymentTargetConfig struct {
 	EnableDebugMode                        *bool                                   `json:"enable_debug_mode,omitempty"`
 	EnableDebugPodReceiveProductionTraffic *bool                                   `json:"enable_debug_pod_receive_production_traffic,omitempty"`
 	DeploymentStrategy                     *DeploymentStrategy                     `json:"deployment_strategy,omitempty"`
+	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
+	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
