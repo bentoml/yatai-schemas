@@ -129,15 +129,14 @@ type BentoRequestOverrides struct {
 }
 
 type ApiServerBentoDeploymentOverrides struct {
-	MonitorExporter  *servingv2alpha1.MonitorExporterSpec `json:"monitor_exporter,omitempty"`
+	MonitorExporter  *servingv2alpha1.MonitorExporterSpec `json:"monitorExporter,omitempty"`
 	ExtraPodMetadata *servingv2alpha1.ExtraPodMetadata    `json:"extraPodMetadata,omitempty"`
 	ExtraPodSpec     *servingv2alpha1.ExtraPodSpec        `json:"extraPodSpec,omitempty"`
 }
 
 type RunnerBentoDeploymentOverrides struct {
-	MonitorExporter  *servingv2alpha1.MonitorExporterSpec `json:"monitor_exporter,omitempty"`
-	ExtraPodMetadata *servingv2alpha1.ExtraPodMetadata    `json:"extraPodMetadata,omitempty"`
-	ExtraPodSpec     *servingv2alpha1.ExtraPodSpec        `json:"extraPodSpec,omitempty"`
+	ExtraPodMetadata *servingv2alpha1.ExtraPodMetadata `json:"extraPodMetadata,omitempty"`
+	ExtraPodSpec     *servingv2alpha1.ExtraPodSpec     `json:"extraPodSpec,omitempty"`
 }
 
 type DeploymentTargetRunnerConfig struct {
