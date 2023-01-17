@@ -190,6 +190,12 @@ const (
 	DeploymentStrategyBestEffortControlledRollout DeploymentStrategy = "BestEffortControlledRollout"
 )
 
+type MonitorExporterSpec struct {
+	Enabled bool              `json:"enabled,omitempty"`
+	Output  string            `json:"output,omitempty"`
+	Options map[string]string `json:"options,omitempty"`
+}
+
 type DeploymentTargetConfig struct {
 	KubeResourceUid                        string                                  `json:"kubeResourceUid"`
 	KubeResourceVersion                    string                                  `json:"kubeResourceVersion"`
@@ -201,6 +207,7 @@ type DeploymentTargetConfig struct {
 	EnableStealingTrafficDebugMode         *bool                                   `json:"enable_stealing_traffic_debug_mode,omitempty"`
 	EnableDebugMode                        *bool                                   `json:"enable_debug_mode,omitempty"`
 	EnableDebugPodReceiveProductionTraffic *bool                                   `json:"enable_debug_pod_receive_production_traffic,omitempty"`
+	MonitorExporter                        *MonitorExporterSpec                    `json:"monitorExporter,omitempty"`
 	DeploymentStrategy                     *DeploymentStrategy                     `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
 	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
