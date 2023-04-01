@@ -10,6 +10,7 @@ type YataiComponentName string
 const (
 	YataiComponentNameDeployment   YataiComponentName = "deployment"
 	YataiComponentNameImageBuilder YataiComponentName = "image-builder"
+	YataiComponentNameServerless   YataiComponentName = "serverless"
 	YataiComponentNameFunction     YataiComponentName = "function"
 	YataiComponentNameJob          YataiComponentName = "job"
 )
