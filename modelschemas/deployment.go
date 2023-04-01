@@ -19,3 +19,14 @@ const (
 func (d DeploymentStatus) Ptr() *DeploymentStatus {
 	return &d
 }
+
+type DeploymentMode string
+
+const (
+	DeploymentModeDeployment DeploymentMode = "deployment"
+	DeploymentModeFunction   DeploymentMode = "function"
+)
+
+func (d DeploymentMode) Ptr() *DeploymentMode {
+	return &d
+}
