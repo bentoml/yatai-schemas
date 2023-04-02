@@ -4,7 +4,7 @@ import "github.com/bentoml/yatai-schemas/modelschemas"
 
 type DeploymentSchema struct {
 	ResourceSchema
-	Mode           modelschemas.DeploymentMode   `json:"mode"`
+	Mode           *modelschemas.DeploymentMode  `json:"mode,omitempty"`
 	Creator        *UserSchema                   `json:"creator"`
 	Cluster        *ClusterFullSchema            `json:"cluster"`
 	Status         modelschemas.DeploymentStatus `json:"status" enum:"unknown,non-deployed,running,unhealthy,failed,deploying"`
@@ -19,7 +19,7 @@ type DeploymentListSchema struct {
 }
 
 type UpdateDeploymentSchema struct {
-	Mode        modelschemas.DeploymentMode     `json:"mode"`
+	Mode        *modelschemas.DeploymentMode    `json:"mode,omitempty"`
 	Targets     []*CreateDeploymentTargetSchema `json:"targets"`
 	Labels      *modelschemas.LabelItemsSchema  `json:"labels,omitempty"`
 	Description *string                         `json:"description,omitempty"`
