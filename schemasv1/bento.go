@@ -20,7 +20,7 @@ type BentoSchema struct {
 	PresignedUploadUrl      string                            `json:"presigned_upload_url"`
 	PresignedDownloadUrl    string                            `json:"presigned_download_url"`
 	PresignedUrlsDeprecated bool                              `json:"presigned_urls_deprecated"`
-	TransmissionStrategy    modelschemas.TransmissionStrategy `json:"transmission_strategy"`
+	TransmissionStrategy    *modelschemas.TransmissionStrategy `json:"transmission_strategy"`
 	UploadId                string                            `json:"upload_id"`
 	Manifest                *modelschemas.BentoManifestSchema `json:"manifest"`
 	BuildAt                 time.Time                         `json:"build_at"`
