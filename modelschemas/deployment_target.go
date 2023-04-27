@@ -168,6 +168,7 @@ type RunnerBentoDeploymentOverrides struct {
 }
 
 type DeploymentTargetRunnerConfig struct {
+	ResourceInstance                       *string                         `json:"resource_instance,omitempty"`
 	Resources                              *DeploymentTargetResources      `json:"resources,omitempty"`
 	HPAConf                                *DeploymentTargetHPAConf        `json:"hpa_conf,omitempty"`
 	Envs                                   *[]*LabelItemSchema             `json:"envs,omitempty"`
@@ -227,6 +228,7 @@ type RequestQueueConfig struct {
 type DeploymentTargetConfig struct {
 	KubeResourceUid                        string                                  `json:"kubeResourceUid"`
 	KubeResourceVersion                    string                                  `json:"kubeResourceVersion"`
+	ResourceInstance                       *string                                 `json:"resource_instance,omitempty"`
 	Resources                              *DeploymentTargetResources              `json:"resources"`
 	HPAConf                                *DeploymentTargetHPAConf                `json:"hpa_conf,omitempty"`
 	Envs                                   *[]*LabelItemSchema                     `json:"envs,omitempty"`

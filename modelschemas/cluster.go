@@ -13,6 +13,7 @@ type ClusterConfigSchema struct {
 	DefaultDeploymentKubeNamespace string                  `json:"default_deployment_kube_namespace"`
 	IngressIp                      string                  `json:"ingress_ip"`
 	AWS                            *ClusterConfigAWSSchema `json:"aws"`
+	ResourceInstances              []ResourceInstance      `json:"resource_instances"`
 }
 
 func (c *ClusterConfigSchema) Scan(value interface{}) error {
