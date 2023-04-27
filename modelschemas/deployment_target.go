@@ -176,6 +176,7 @@ type DeploymentTargetRunnerConfig struct {
 	EnableDebugPodReceiveProductionTraffic *bool                           `json:"enable_debug_pod_receive_production_traffic,omitempty"`
 	DeploymentStrategy                     *DeploymentStrategy             `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *RunnerBentoDeploymentOverrides `json:"bento_deployment_overrides,omitempty"`
+	RequestQueue                           *RequestQueueConfig             `json:"request_queue,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
