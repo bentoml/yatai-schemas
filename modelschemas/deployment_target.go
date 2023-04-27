@@ -69,13 +69,41 @@ func (in *DeploymentTargetResources) DeepCopyInto(out *DeploymentTargetResources
 	}
 }
 
+type HPAMetricType string
+
+const (
+	HPAMetricTypeCPU   HPAMetricType = "cpu"
+	HPAMetricTypeGPU   HPAMetricType = "gpu"
+	HPAMetricTypeQueue HPAMetricType = "queue"
+)
+
+type HPAMetric struct {
+	Type  HPAMetricType `json:"type"`
+	Value int64         `json:"value"`
+}
+
+type HPAScaleBehavior string
+
+const (
+	HPAScaleBehaviorDisabled HPAScaleBehavior = "disabled"
+	HPAScaleBehaviorStable   HPAScaleBehavior = "stable"
+	HPAScaleBehaviorFast     HPAScaleBehavior = "fast"
+)
+
+type HPAPolicy struct {
+	Metrics           []HPAMetric      `json:"metrics"`
+	ScaleDownBehavior HPAScaleBehavior `json:"scale_down_behavior"`
+	ScaleUpBehavior   HPAScaleBehavior `json:"scale_up_behavior"`
+}
+
 type DeploymentTargetHPAConf struct {
-	CPU         *int32  `json:"cpu,omitempty"`
-	GPU         *int32  `json:"gpu,omitempty"`
-	Memory      *string `json:"memory,omitempty"`
-	QPS         *int64  `json:"qps,omitempty"`
-	MinReplicas *int32  `json:"min_replicas,omitempty"`
-	MaxReplicas *int32  `json:"max_replicas,omitempty"`
+	CPU         *int32     `json:"cpu,omitempty"`
+	GPU         *int32     `json:"gpu,omitempty"`
+	Memory      *string    `json:"memory,omitempty"`
+	QPS         *int64     `json:"qps,omitempty"`
+	MinReplicas *int32     `json:"min_replicas,omitempty"`
+	MaxReplicas *int32     `json:"max_replicas,omitempty"`
+	Policy      *HPAPolicy `json:"policy,omitempty"`
 }
 
 func (in *DeploymentTargetHPAConf) DeepCopy() (out *DeploymentTargetHPAConf) {
@@ -190,6 +218,11 @@ const (
 	DeploymentStrategyBestEffortControlledRollout DeploymentStrategy = "BestEffortControlledRollout"
 )
 
+type RequestQueueConfig struct {
+	Enabled               *bool  `json:"enabled,omitempty"`
+	MaxConsumeConcurrency *int32 `json:"max_consume_concurrency,omitempty"`
+}
+
 type DeploymentTargetConfig struct {
 	KubeResourceUid                        string                                  `json:"kubeResourceUid"`
 	KubeResourceVersion                    string                                  `json:"kubeResourceVersion"`
@@ -204,6 +237,7 @@ type DeploymentTargetConfig struct {
 	DeploymentStrategy                     *DeploymentStrategy                     `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
 	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
+	RequestQueue                           *RequestQueueConfig                     `json:"request_queue,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
