@@ -6,6 +6,7 @@ import (
 	"time"
 
 	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 
 	servingv2alpha1 "github.com/bentoml/yatai-deployment/apis/serving/v2alpha1"
 	resourcesv1alpha1 "github.com/bentoml/yatai-image-builder/apis/resources/v1alpha1"
@@ -72,14 +73,15 @@ func (in *DeploymentTargetResources) DeepCopyInto(out *DeploymentTargetResources
 type HPAMetricType string
 
 const (
-	HPAMetricTypeCPU   HPAMetricType = "cpu"
-	HPAMetricTypeGPU   HPAMetricType = "gpu"
-	HPAMetricTypeQueue HPAMetricType = "queue"
+	HPAMetricTypeMemory HPAMetricType = "memory"
+	HPAMetricTypeCPU    HPAMetricType = "cpu"
+	HPAMetricTypeGPU    HPAMetricType = "gpu"
+	HPAMetricTypeQPS    HPAMetricType = "qps"
 )
 
 type HPAMetric struct {
-	Type  HPAMetricType `json:"type"`
-	Value int64         `json:"value"`
+	Type  HPAMetricType      `json:"type"`
+	Value *resource.Quantity `json:"value"`
 }
 
 type HPAScaleBehavior string
