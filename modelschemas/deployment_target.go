@@ -179,7 +179,7 @@ type DeploymentTargetRunnerConfig struct {
 	EnableDebugPodReceiveProductionTraffic *bool                           `json:"enable_debug_pod_receive_production_traffic,omitempty"`
 	DeploymentStrategy                     *DeploymentStrategy             `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *RunnerBentoDeploymentOverrides `json:"bento_deployment_overrides,omitempty"`
-	RequestQueue                           *RequestQueueConfig             `json:"request_queue,omitempty"`
+	TrafficControl                         *TrafficControlConfig           `json:"traffic_control,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -222,6 +222,11 @@ const (
 	DeploymentStrategyBestEffortControlledRollout DeploymentStrategy = "BestEffortControlledRollout"
 )
 
+type TrafficControlConfig struct {
+	Timeout      *time.Duration      `json:"timeout,omitempty"`
+	RequestQueue *RequestQueueConfig `json:"request_queue,omitempty"`
+}
+
 type RequestQueueConfig struct {
 	Enabled               *bool  `json:"enabled,omitempty"`
 	MaxConsumeConcurrency *int32 `json:"max_consume_concurrency,omitempty"`
@@ -242,7 +247,7 @@ type DeploymentTargetConfig struct {
 	DeploymentStrategy                     *DeploymentStrategy                     `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
 	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
-	RequestQueue                           *RequestQueueConfig                     `json:"request_queue,omitempty"`
+	TrafficControl                         *TrafficControlConfig                   `json:"traffic_control,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
