@@ -7,5 +7,5 @@ type ResourceInstance struct {
 	Description   string                    `json:"description"`
 	NodeSelectors map[string]string         `json:"node_selectors"`
 	Resources     DeploymentTargetResources `json:"resources"`
-	Price         float64                   `json:"price"`
+	Price         string                    `json:"price"`
 }
