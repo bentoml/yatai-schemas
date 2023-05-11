@@ -3,6 +3,7 @@ package modelschemas
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"errors"
 	"time"
 
 	corev1 "k8s.io/api/core/v1"
@@ -11,6 +12,33 @@ import (
 	servingv2alpha1 "github.com/bentoml/yatai-deployment/apis/serving/v2alpha1"
 	resourcesv1alpha1 "github.com/bentoml/yatai-image-builder/apis/resources/v1alpha1"
 )
+
+type Duration time.Duration
+
+func (d Duration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(time.Duration(d).String())
+}
+
+func (d *Duration) UnmarshalJSON(b []byte) error {
+	var v interface{}
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	switch value := v.(type) {
+	case float64:
+		*d = Duration(time.Duration(value))
+		return nil
+	case string:
+		tmp, err := time.ParseDuration(value)
+		if err != nil {
+			return err
+		}
+		*d = Duration(tmp)
+		return nil
+	default:
+		return errors.New("invalid duration")
+	}
+}
 
 type DeploymentTargetType string
 
@@ -146,7 +174,7 @@ func (in *DeploymentTargetHPAConf) DeepCopyInto(out *DeploymentTargetHPAConf) {
 }
 
 type BentoRequestOverrides struct {
-	ImageBuildTimeout *time.Duration `json:"imageBuildTimeout,omitempty"`
+	ImageBuildTimeout *Duration `json:"imageBuildTimeout,omitempty"`
 
 	ImageBuilderExtraPodMetadata   *resourcesv1alpha1.ExtraPodMetadata `json:"imageBuilderExtraPodMetadata,omitempty"`
 	ImageBuilderExtraPodSpec       *resourcesv1alpha1.ExtraPodSpec     `json:"imageBuilderExtraPodSpec,omitempty"`
@@ -180,7 +208,7 @@ type DeploymentTargetRunnerConfig struct {
 	DeploymentStrategy                     *DeploymentStrategy             `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *RunnerBentoDeploymentOverrides `json:"bento_deployment_overrides,omitempty"`
 	TrafficControl                         *TrafficControlConfig           `json:"traffic_control,omitempty"`
-	DeploymentColdStartWaitTimeout         *time.Duration                  `json:"deployment_cold_start_wait_timeout,omitempty"`
+	DeploymentColdStartWaitTimeout         *Duration                       `json:"deployment_cold_start_wait_timeout,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -224,7 +252,7 @@ const (
 )
 
 type TrafficControlConfig struct {
-	Timeout      *time.Duration      `json:"timeout,omitempty"`
+	Timeout      *Duration           `json:"timeout,omitempty"`
 	RequestQueue *RequestQueueConfig `json:"request_queue,omitempty"`
 }
 
@@ -249,7 +277,7 @@ type DeploymentTargetConfig struct {
 	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
 	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
 	TrafficControl                         *TrafficControlConfig                   `json:"traffic_control,omitempty"`
-	DeploymentColdStartWaitTimeout         *time.Duration                          `json:"deployment_cold_start_wait_timeout,omitempty"`
+	DeploymentColdStartWaitTimeout         *Duration                               `json:"deployment_cold_start_wait_timeout,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
