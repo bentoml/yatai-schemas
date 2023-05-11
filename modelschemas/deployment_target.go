@@ -180,7 +180,7 @@ type DeploymentTargetRunnerConfig struct {
 	DeploymentStrategy                     *DeploymentStrategy             `json:"deployment_strategy,omitempty"`
 	BentoDeploymentOverrides               *RunnerBentoDeploymentOverrides `json:"bento_deployment_overrides,omitempty"`
 	TrafficControl                         *TrafficControlConfig           `json:"traffic_control,omitempty"`
-	ColdStartWaitTimeout                   *time.Duration                  `json:"cold_start_wait_timeout,omitempty"`
+	DeploymentColdStartWaitTimeout         *time.Duration                  `json:"deployment_cold_start_wait_timeout,omitempty"`
 }
 
 func (in *DeploymentTargetRunnerConfig) DeepCopy() (out *DeploymentTargetRunnerConfig) {
@@ -249,7 +249,7 @@ type DeploymentTargetConfig struct {
 	BentoDeploymentOverrides               *ApiServerBentoDeploymentOverrides      `json:"bento_deployment_overrides,omitempty"`
 	BentoRequestOverrides                  *BentoRequestOverrides                  `json:"bento_request_overrides,omitempty"`
 	TrafficControl                         *TrafficControlConfig                   `json:"traffic_control,omitempty"`
-	ColdStartWaitTimeout                   *time.Duration                          `json:"cold_start_wait_timeout,omitempty"`
+	DeploymentColdStartWaitTimeout         *time.Duration                          `json:"deployment_cold_start_wait_timeout,omitempty"`
 }
 
 func (in *DeploymentTargetConfig) DeepCopy() (out *DeploymentTargetConfig) {
