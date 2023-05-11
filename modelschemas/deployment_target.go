@@ -93,9 +93,9 @@ const (
 )
 
 type HPAPolicy struct {
-	Metrics           []HPAMetric      `json:"metrics"`
-	ScaleDownBehavior HPAScaleBehavior `json:"scale_down_behavior"`
-	ScaleUpBehavior   HPAScaleBehavior `json:"scale_up_behavior"`
+	Metrics           []HPAMetric       `json:"metrics,omitempty"`
+	ScaleDownBehavior *HPAScaleBehavior `json:"scale_down_behavior,omitempty"`
+	ScaleUpBehavior   *HPAScaleBehavior `json:"scale_up_behavior,omitempty"`
 }
 
 type DeploymentTargetHPAConf struct {
