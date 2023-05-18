@@ -144,6 +144,32 @@ type HPAPolicy struct {
 	ScaleUpBehavior   *HPAScaleBehavior `json:"scale_up_behavior,omitempty"`
 }
 
+func (in *HPAPolicy) DeepCopy() (out *HPAPolicy) {
+	if in == nil {
+		return nil
+	}
+	out = new(HPAPolicy)
+	in.DeepCopyInto(out)
+	return
+}
+
+func (in *HPAPolicy) DeepCopyInto(out *HPAPolicy) {
+	*out = *in
+	if in.Metrics != nil {
+		in, out := &in.Metrics, &out.Metrics
+		*out = make([]HPAMetric, len(*in))
+		copy(*out, *in)
+	}
+	if in.ScaleDownBehavior != nil {
+		out.ScaleDownBehavior = new(HPAScaleBehavior)
+		*out.ScaleDownBehavior = *in.ScaleDownBehavior
+	}
+	if in.ScaleUpBehavior != nil {
+		out.ScaleUpBehavior = new(HPAScaleBehavior)
+		*out.ScaleUpBehavior = *in.ScaleUpBehavior
+	}
+}
+
 type DeploymentTargetHPAConf struct {
 	CPU         *int32     `json:"cpu,omitempty"`
 	GPU         *int32     `json:"gpu,omitempty"`
