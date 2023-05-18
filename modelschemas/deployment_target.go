@@ -112,6 +112,24 @@ type HPAMetric struct {
 	Value *resource.Quantity `json:"value"`
 }
 
+func (in *HPAMetric) DeepCopy() (out *HPAMetric) {
+	if in == nil {
+		return nil
+	}
+	out = new(HPAMetric)
+	in.DeepCopyInto(out)
+	return
+}
+
+func (in *HPAMetric) DeepCopyInto(out *HPAMetric) {
+	*out = *in
+	if in.Value != nil {
+		in, out := &in.Value, &out.Value
+		*out = new(resource.Quantity)
+		**out = (*in).DeepCopy()
+	}
+}
+
 type HPAScaleBehavior string
 
 const (
