@@ -1,6 +1,6 @@
 module github.com/bentoml/yatai-schemas
 
-go 1.17
+go 1.26.10
 
 require (
 	github.com/bentoml/yatai-deployment v1.1.7-0.20230210154159-c292a9619c4f
